@@ -25,7 +25,7 @@ function App() {
     try {
       const {data} =await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=${API_KEY}`)
       console.log(data);
-      if(data.cod == 200){
+      if(data.cod === 200){
         setTemperature(data.main.temp);
         setHumidity(data.main.humidity);
         setWindSpeed(data.wind.speed);
