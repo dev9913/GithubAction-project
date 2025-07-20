@@ -58,7 +58,7 @@ function App() {
       <FaSearch onClick={fetchWeather} className="search"/>
       </div>
 
-      <img src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="no Image" />
+      <image src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="no Image" />
 
       <div className="secondBox">
           {/* Temprature & CityName */}
