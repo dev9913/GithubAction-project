@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-app-service
+  namespace: prod
+spec:
+  selector: 
+    app: wheather
+  ports:
+  - protocol: "TCP"
+    port: 3000
+    targetPort: 3000 
+  type: NodePort

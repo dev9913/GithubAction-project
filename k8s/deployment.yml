@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: my-app
+  namespace: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wheather
+  template:
+    metadata:
+      labels: 
+        app: wheather
+    spec:
+      containers:
+      - name: my-app
+        image: dev7878/wheatherapp
+        ports:
+        - containerPort: 3000
+
+
+          
+
+
