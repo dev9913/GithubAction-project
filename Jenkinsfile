@@ -4,6 +4,9 @@ pipeline {
   
   agent { label 'agentdev' }
 
+  parameters {
+        string(name: 'IMAGE_TAG', defaultValue: 'v1.0', description: 'Docker image tag to deploy')
+  }
   environment {  
     AWS_DEFAULT_REGION = "us-east-1"
   }
@@ -21,7 +24,7 @@ pipeline {
     stage('Build_Image') {
       steps {
         script {
-          imagebuild("wheatherapp", "latest", "dev7878")
+          imagebuild("wheatherapp", "${params.IMAGE_TAG}", "dev7878")
         }
       }
     }
@@ -29,7 +32,7 @@ pipeline {
     stage('Image_Push') {
       steps {
         script {
-          dockerpush("wheatherapp", "latest", "dev7878")
+          dockerpush("wheatherapp", "${params.IMAGE_TAG}", "dev7878")
         }
       }
     }
@@ -55,6 +58,17 @@ pipeline {
         }
       }
     }
+    stage('Update K8s Manifest') {
+            steps {
+                script {
+                    // Replace image in deployment.yaml (assuming line has "image: ...")
+                    sh """
+                        sed -i "s|image: .*|image: ${params.IMAGE_TAG}|g" k8s/deployment.yaml
+                    """
+                }
+            }
+        }
+
   }
 }
 
